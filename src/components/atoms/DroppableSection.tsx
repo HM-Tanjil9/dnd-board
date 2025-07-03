@@ -29,7 +29,7 @@ export const DroppableSection: React.FC<DroppableSectionProps> = ({
         flexDirection="column"
         padding={2}
         borderRadius={8}
-        backgroundColor={"gray.100"}
+        backgroundColor={"gray.200"}
         minHeight={20}
       >
         {items.map((card: Card) => (

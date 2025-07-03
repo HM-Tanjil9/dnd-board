@@ -4,13 +4,13 @@ import { useState } from "react";
 import "./App.css";
 import { DroppableSection } from "./components/atoms/DroppableSection";
 import { InsertTask } from "./components/atoms/InsertTask";
-
 interface Card {
   id: string;
   title: string;
 }
 
 function App() {
+  const validSections = ["Todo", "Ongoing", "Done"]; // Define allowed drop zones
   const [todoItems, setTodoItems] = useState<Card[]>([
     { id: "1", title: "Task 1" },
     { id: "2", title: "Task 2" },
@@ -76,6 +76,10 @@ function App() {
           const cardTitle = e.active?.data?.current?.title; // card title
           const prevSection = e.active?.data?.current?.section; // where was card before drag
 
+          // Only proceed if dropping in a valid section
+          if (!validSections.includes(currentSection.toString())) {
+            return; // Cancel the drop if not in valid section
+          }
           if (currentSection !== prevSection) {
             console.log(
               `Moved ${cardTitle} from ${prevSection} to ${currentSection}`
@@ -91,6 +95,7 @@ function App() {
           });
         }}
         collisionDetection={rectIntersection}
+        // modifiers={[restrictToParentElement]}
       >
         <Flex direction="column">
           <Flex gap={4} margin={2}>
